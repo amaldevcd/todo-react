@@ -5,6 +5,16 @@ import {useState} from 'react';
 function App() {
   const [toDos,setToDos]=useState([]);
   const [toDo,settoDo]=useState('');
+  var today = new Date()
+  var day = today.getDay();
+  var daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
+  const handleDelete = (value) =>
+  {
+    console.log(value.text);
+    setToDos(toDos.filter((obj)=>
+    {return obj.id!== value.id}
+    ))
+  }
 return(
   <div className="app">
       <div className="mainHeading">
@@ -12,7 +22,7 @@ return(
       </div>
       <div className="subHeading">
         <br />
-        <h2>Whoop, it's Wednesday 🌝 ☕ </h2>
+        <h2>Whoop, it's {daylist[day]} 🌝 ☕ </h2>
       </div>
       <div className="input">
         <input value={toDo} onChange={(e) => settoDo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
@@ -34,13 +44,9 @@ return(
               }} type="checkbox" name="" id="" value="false"/>
             <p>{value.text}</p>
           </div>
-          {/* <div className="right">
-            <i className="fas fa-times" onClick={setToDos(toDos.filter((obj) => 
-              {
-                return value.id!==obj.id
-                  
-              }))}></i>
-          </div> */}
+          <div className="right">
+            <i className="fas fa-times" onClick={()=>handleDelete(value)}></i>
+          </div>
         </div>
           );
         })}
